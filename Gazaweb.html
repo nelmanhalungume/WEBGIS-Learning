@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meu Mapa WebGIS</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h3>🌍 Mapa WebGIS com Leaflet + GeoServer</h3>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  var mapa = L.map('map').setView([-25.96, 32.58], 8); // substitui com tua localização
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap',
+    maxZoom: 18
+  }).addTo(mapa);
+
+  L.tileLayer.wms("http://localhost:8080/geoserver/ne/wms", {
+    layers: 'ne:gaza_mozland',
+    format: 'image/png',
+    transparent: true
+  }).addTo(mapa);
+</script>
+
+</body>
+</html>
